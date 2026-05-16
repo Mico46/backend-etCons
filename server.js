@@ -7,6 +7,7 @@ const upload = require('./middleware/upload');
 const Log = require('./models/logModel');
 
 const app = express();
+const BLOB_READ_WRITE_TOKEN="vercel_blob_rw_ztwqODiTGGAPlTsK_fAp6f1pMUblAWnIFDkp3HK4mRqIR6S";
 
 app.use(cors({
   origin: '*',
