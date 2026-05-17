@@ -8,7 +8,7 @@ const Log = require('./models/logModel');
 
 const app = express();
 const BLOB_READ_WRITE_TOKEN="vercel_blob_rw_ztwqODiTGGAPlTsK_fAp6f1pMUblAWnIFDkp3HK4mRqIR6S";
-
+const uri = "mongodb+srv://mic:abush1157@cluster0.9bamq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.use(cors({
   origin: '*',
 
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(uri)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("errer connecting:"+ err));
 
