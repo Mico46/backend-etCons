@@ -5,7 +5,9 @@ const Expense = require('../models/Expense');
 const auth = require('../middleware/auth');
 
 const upload = require('../middleware/upload');
-
+const {
+  uploadMultiple,
+} = require('../services/blobService');
 
 // CREATE EXPENSE
 router.post(
@@ -16,17 +18,21 @@ router.post(
   async (req, res) => {
 
     try {
-
-      const imagePaths = req.files.map(file =>
-        file.path.replace(/\\/g, '/')
+const imageUrls =
+      await uploadMultiple(
+        req.files,
+        'logs',
       );
+     /*  const imagePaths = req.files.map(file =>
+        file.path
+      ); */
 
       const expense =
           await Expense.create({
 
         ...req.body,
 
-        receiptImages: imagePaths,
+        receiptImages: imageUrls,
       });
 
       res.json(expense);
