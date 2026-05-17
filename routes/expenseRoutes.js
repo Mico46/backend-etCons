@@ -21,7 +21,7 @@ router.post(
 const imageUrls =
       await uploadMultiple(
         req.files,
-        'logs',
+        'expenses',
       );
      /*  const imagePaths = req.files.map(file =>
         file.path
@@ -39,7 +39,7 @@ const imageUrls =
 
     } catch (err) {
 
-      console.log(err);
+      console.log("errer: "+err);
 
       res.status(500).json({
         msg: "Failed to create expense",
