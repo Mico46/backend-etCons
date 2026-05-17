@@ -1,6 +1,6 @@
 const { put } = require('@vercel/blob');
 
-const BLOB_READ_WRITE_TOKEN="vercel_blob_rw_ztwqODiTGGAPlTsK_fAp6f1pMUblAWnIFDkp3HK4mRqIR6S";
+const BLOB_READ_WRITE_TOKEN="vercel_blob_rw_WYzxZut2LfRdVhNt_nkYynk20mn1dZhbyA0rcE8c1xjrvmY";
 
 async function uploadFile(
   file,
