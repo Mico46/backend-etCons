@@ -2,49 +2,62 @@ const router = require('express').Router();
 const Log = require('../models/logModel');
 const auth = require('../middleware/auth');
 const upload = require('../middleware/upload');
-
+const {
+  uploadMultiple,
+} = require('../services/blobService');
 // ADD LOG WITH IMAGES
 router.post('/', auth, upload.single('image', 5), async (req, res) => {
- /* try {
+  try {
     const { siteId, workDone, workers, notes } = req.body;
-
-    const imagePaths = req.files.map(file => file.path);
-console.log(imagePaths);
+    const imageUrls =
+      await uploadMultiple(
+        req.files,
+        'logs',
+      );
+   // const imagePaths = req.files.map(file => file.path);
+   // console.log(imagePaths);
     const log = await Log.create({
       siteId,
       userId: req.user.id,
       workDone,
       workers,
       notes,
-      images: imagePaths,
+      images: imageUrls,
     });
 
     res.json(log);
   } catch (err) {
     res.status(500).json({ msg: "Upload failed" });
-  }*/
- if (!req.file) {
-     return res.status(400).send('No file uploaded.');
-   }
- const { siteId, workDone, workers, notes } = req.body;
- //const imagePaths = req.files.map(file => file.path);
- //console.log(imagePaths);
-   console.log('Received file:', req.file.path);
-   console.log('Extra field:', req.body);
- 
-   const log = await Log.create({
-         siteId,
-         userId: req.user.id,
-         workDone,
-         workers,
-         notes,
-         images: req.file.path,
-       });
- 
-   res.json(log,{
-     message: 'File uploaded !',
-     filename: req.file.filename
-   });
+  }
+  /*   if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+    const { siteId, workDone, workers, notes } = req.body;
+    //const imagePaths = req.files.map(file => file.path);
+    //console.log(imagePaths);
+  
+  
+    const imageUrls =
+      await uploadMultiple(
+        req.files,
+        'logs',
+      );
+    console.log('Received file:', req.file.path);
+    console.log('Extra field:', req.body);
+  
+    const log = await Log.create({
+      siteId,
+      userId: req.user.id,
+      workDone,
+      workers,
+      notes,
+      images: req.file.path,
+    });
+  
+    res.json(log, {
+      message: 'File uploaded !',
+      filename: req.file.filename
+    }); */
 });
 
 // GET LOGS FOR A SITE
@@ -67,13 +80,13 @@ router.put('/:id', auth, upload.array('images', 5), async (req, res) => {
 
     // old images kept by user
     let keptImages = [];
-console.log(existingImages);
+    console.log(existingImages);
     if (existingImages) {
       keptImages = JSON.parse(existingImages);
     }
 
     // newly uploaded images
-    const newImages = req.files.map(file => file.path.replace(/\\/g,'/'));
+    const newImages = req.files.map(file => file.path);
 
     log.workDone = workDone;
     log.workers = workers;
