@@ -10,36 +10,30 @@ const {
 } = require('../services/blobService');
 
 // CREATE EXPENSE
-router.post(
-  '/',
-  auth,
-  upload.array('receipts', 5),
-
-  async (req, res) => {
+router.post('/',auth,upload.array('images', 5),async (req, res) => {
 
     try {
-const imageUrls =
-      await uploadMultiple(
-        req.files,
-        'expenses',
-      );
-     /*  const imagePaths = req.files.map(file =>
-        file.path
-      ); */
+      const imageUrls =
+        await uploadMultiple(
+          req.files,
+          'expenses',
+        );
+      /*  const imagePaths = req.files.map(file =>
+         file.path
+       ); */
 
-      const expense =
-          await Expense.create({
+      const expense = await Expense.create({
 
-        ...req.body,
+          ...req.body,
 
-        receiptImages: imageUrls,
-      });
+          receiptImages: imageUrls,
+        });
 
       res.json(expense);
 
     } catch (err) {
 
-      console.log("errer: "+err);
+      console.log("errer: " + err);
 
       res.status(500).json({
         msg: "Failed to create expense",
