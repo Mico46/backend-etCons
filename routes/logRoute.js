@@ -6,7 +6,7 @@ const {
   uploadMultiple,
 } = require('../services/blobService');
 // ADD LOG WITH IMAGES
-router.post('/', auth, upload.single('image', 5), async (req, res) => {
+router.post('/', auth, upload.array('images', 5), async (req, res) => {
   try {
     const { siteId, workDone, workers, notes } = req.body;
     const imageUrls =
