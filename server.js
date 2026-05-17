@@ -8,7 +8,8 @@ const Log = require('./models/logModel');
 
 const app = express();
 const BLOB_READ_WRITE_TOKEN="vercel_blob_rw_ztwqODiTGGAPlTsK_fAp6f1pMUblAWnIFDkp3HK4mRqIR6S";
-const uri = "mongodb+srv://mic:abush1157@cluster0.9bamq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb://mic:abush1157@cluster0-shard-00-00.9bamq.mongodb.net:27017,cluster0-shard-00-01.9bamq.mongodb.net:27017,cluster0-shard-00-02.9bamq.mongodb.net:27017/?ssl=true&replicaSet=atlas-5twhn6-shard-0&authSource=admin&appName=Cluster0";
+  //"mongodb+srv://mic:abush1157@cluster0.9bamq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 app.use(cors({
   origin: '*',
 
