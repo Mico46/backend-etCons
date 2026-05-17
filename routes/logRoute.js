@@ -27,7 +27,7 @@ router.post('/', auth, upload.array('images', 5), async (req, res) => {
 
     res.json(log);
   } catch (err) {
-    res.status(500).json({ msg: "Upload failed" });
+    res.status(500).json({ msg: "Upload failed!" });
   }
   /*   if (!req.file) {
       return res.status(400).send('No file uploaded.');
