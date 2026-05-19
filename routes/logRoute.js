@@ -86,7 +86,12 @@ router.put('/:id', auth, upload.array('images', 5), async (req, res) => {
     }
 
     // newly uploaded images
-    const newImages = req.files.map(file => file.path);
+   // const newImages = req.files.map(file => file.path);
+   const newImages =
+      await uploadMultiple(
+        req.files,
+        'logs',
+      );
  console.log(newImages);
     log.workDone = workDone;
     log.workers = workers;
