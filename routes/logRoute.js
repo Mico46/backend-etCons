@@ -6,6 +6,22 @@ const {
   uploadMultiple,
 } = require('../services/blobService');
 // ADD LOG WITH IMAGES
+
+router.post('/photos',upload.array('images',5), async (req,res)=>{
+try{
+
+
+  const imageUrls =
+      await uploadMultiple(
+        req.files,
+        'photos',
+      );
+      res.json(imageUrls);
+    } catch (err){
+      res.status(500).json({ msg: "Upload failed!" });
+    }
+
+})
 router.post('/', auth, upload.array('images', 5), async (req, res) => {
   try {
     const { siteId, workDone, workers, notes } = req.body;
